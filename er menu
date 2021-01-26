@@ -1,0 +1,23 @@
+[33mcommit 1321d13f2cecb444a9f1331a7b7e474d08ceb866[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: GutyLabs <gutylabs20@gmail.com>
+Date:   Tue Jan 12 01:57:04 2021 -0500
+
+    Creacion de Seeder para User y Factories para User, Tag, Post, Image y con eso se lleno datos falsos a la base de datos. Revisar ImageFactory
+
+[33mcommit 26f743e8dcff34a92de14643e6b1a214dec0030e[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: GutyLabs <gutylabs20@gmail.com>
+Date:   Mon Jan 11 20:30:02 2021 -0500
+
+    Configurando las relaciones de los modelos creados
+
+[33mcommit 5b0c383736825f05d8f8291b2d9eeca187247ecf[m
+Author: GutyLabs <gutylabs20@gmail.com>
+Date:   Mon Jan 11 19:55:37 2021 -0500
+
+    Agregando tablas category, post, tag, post_tag, image. Con sus respectivos atributos
+
+[33mcommit 8c46c96f1df7e9aa3212ca577c6d2f5d3e2f47e7[m
+Author: GutyLabs <gutylabs20@gmail.com>
+Date:   Mon Jan 11 17:18:54 2021 -0500
+
+    Iniciando el ejemplo de Blog con jetstream y tailwind de codesfree, version 0.0.0.0
