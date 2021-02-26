@@ -235,11 +235,11 @@ return [
             'can'  => 'manage-blog',
         ],
         [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
+            'text'        => 'Dashboard',
+            'route'         => 'admin.home',
+            'icon'        => 'fas fa-fw fa-tachometer-alt',
+            // 'label'       => 4,
+            // 'label_color' => 'success',
         ],
         ['header' => 'account_settings'],
         [
