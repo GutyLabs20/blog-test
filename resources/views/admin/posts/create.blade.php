@@ -19,6 +19,8 @@
 
             {!! Form::open(['route' => 'admin.posts.store', 'autocomplete' => 'off']) !!}
 
+                {!! Form::hidden('user_id', auth()->user()->id) !!}
+
                 <div class="form-group">
                     {!! Form::label('name', 'Nombre') !!}
                     {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el nombre del Post']) !!}
@@ -57,20 +59,39 @@
                     <p class="font-weight-bold">Etiquetas</p>
 
                     @foreach ($tags as $tag)
-                        <label for="">
+                        <label>
                             {!! Form::checkbox('tags[]', $tag->id, null, ['class' => 'ml-3']) !!}
                             {{$tag->name}}
                         </label>
                     @endforeach
 
+                    <hr>
+
+                    @error('tags')
+                        <span class="text-danger">
+                            {{$message}}
+                        </span>
+                    @enderror
+
                 </div>
+
+
 
                 <div class="form-group">
 
                     <p class="font-weight-bold">Estado</p>
 
                     <label>{!! Form::radio('status', 1, true) !!}Borrador</label>
-                    <label>{!! Form::radio('status', 1, null, ['class' => 'ml-3']) !!}Publicado</label>
+                    <label>{!! Form::radio('status', 2, null, ['class' => 'ml-3']) !!}Publicado</label>
+
+                    <hr>
+
+                    @error('status')
+                        <span class="text-danger">
+                            {{$message}}
+                        </span>
+                    @enderror
+
                 </div>
 
                 <div class="form-group">
@@ -78,12 +99,24 @@
                     {!! Form::label('extract', 'Extracto') !!}
                     {!! Form::textarea('extract', null, ['class' => 'form-control']) !!}
 
+                    @error('extract')
+                        <span class="text-danger">
+                            {{$message}}
+                        </span>
+                    @enderror
+
                 </div>
 
                 <div class="form-group">
 
                     {!! Form::label('body', 'Cuerpo del Post') !!}
                     {!! Form::textarea('body', null, ['class' => 'form-control']) !!}
+
+                    @error('body')
+                        <span class="text-danger">
+                            {{$message}}
+                        </span>
+                    @enderror
 
                 </div>
 

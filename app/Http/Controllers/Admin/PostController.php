@@ -8,6 +8,9 @@ use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
+//Se agrega un FormRequest
+use App\Http\Requests\StorePostRequest;
+
 class PostController extends Controller
 {
     /**
@@ -41,9 +44,10 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
-        //
+        //Se cambio request por StorePostRequest
+        return 'Las validaciones pasaron con éxtio';
 
     }
 
