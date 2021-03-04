@@ -12,16 +12,16 @@
         <div class="alert alert-success">
             <strong>{{session('info')}}</strong>
         </div>
-    @endif
+    @endif --}}
 
     <div class="card">
         <div class="card-body">
 
-            {!! Form::open(['route' => 'admin.categories.store']) !!}
+            {!! Form::open(['route' => 'admin.posts.store', 'autocomplete' => 'off']) !!}
 
                 <div class="form-group">
                     {!! Form::label('name', 'Nombre') !!}
-                    {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Ingrese nombre de la categoría']) !!}
+                    {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el nombre del Post']) !!}
 
                     @error('name')
                         <span class="text-danger">
@@ -32,7 +32,7 @@
 
                 <div class="form-group">
                     {!! Form::label('slug', 'Slug') !!}
-                    {!! Form::text('slug', null, ['class' => 'form-control', 'placeholder' => 'Ingrese slug de la categoría', 'readonly']) !!}
+                    {!! Form::text('slug', null, ['class' => 'form-control', 'placeholder' => 'Ingrese slug del Post', 'readonly']) !!}
 
                     @error('slug')
                         <span class="text-danger">
@@ -41,19 +41,66 @@
                     @enderror
                 </div>
 
-                {!! Form::submit('Crear Categoría', ['class' => 'btn btn-primary btn-sm']) !!}
+                <div class="form-group">
+                    {!! Form::label('category_id', 'Categoría') !!}
+                    {!! Form::select('category_id', $categorias, null, ['class' => 'form-control']) !!}
+
+                    @error('category_id')
+                        <span class="text-danger">
+                            {{$message}}
+                        </span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+
+                    <p class="font-weight-bold">Etiquetas</p>
+
+                    @foreach ($tags as $tag)
+                        <label for="">
+                            {!! Form::checkbox('tags[]', $tag->id, null, ['class' => 'ml-3']) !!}
+                            {{$tag->name}}
+                        </label>
+                    @endforeach
+
+                </div>
+
+                <div class="form-group">
+
+                    <p class="font-weight-bold">Estado</p>
+
+                    <label>{!! Form::radio('status', 1, true) !!}Borrador</label>
+                    <label>{!! Form::radio('status', 1, null, ['class' => 'ml-3']) !!}Publicado</label>
+                </div>
+
+                <div class="form-group">
+
+                    {!! Form::label('extract', 'Extracto') !!}
+                    {!! Form::textarea('extract', null, ['class' => 'form-control']) !!}
+
+                </div>
+
+                <div class="form-group">
+
+                    {!! Form::label('body', 'Cuerpo del Post') !!}
+                    {!! Form::textarea('body', null, ['class' => 'form-control']) !!}
+
+                </div>
+
+                {!! Form::submit('Crear Post', ['class' => 'btn btn-primary']) !!}
 
             {!! Form::close() !!}
 
         </div>
-    </div> --}}
+    </div>
 
 @stop
 
 
-{{-- @section('js')
+@section('js')
 
     <script src="{{asset('vendor/jQuery-Plugin-stringToSlug-1.3/jquery.stringToSlug.min.js')}}"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/26.0.0/classic/ckeditor.js"></script>
 
     <script>
         $(document).ready( function() {
@@ -63,6 +110,19 @@
                 space: '-'
             });
         });
+
+        // Plugin ckeditor modo clásico
+        ClassicEditor
+        .create( document.querySelector( '#extract' ) )
+        .catch( error => {
+            console.error( error );
+        });
+
+        ClassicEditor
+        .create( document.querySelector( '#body' ) )
+        .catch( error => {
+            console.error( error );
+        });
     </script>
 
-@endsection --}}
+@endsection

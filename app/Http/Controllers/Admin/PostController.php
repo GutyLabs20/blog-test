@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -26,8 +28,11 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
-        return view('admin.posts.create');
+        //metodo pluck, puede convertir una tabla en matriz con valor y clave, segun dos campos asignados
+        $categorias = Category::pluck('name', 'id');
+        $tags = Tag::all();
+
+        return view('admin.posts.create', compact('categorias', 'tags'));
     }
 
     /**

@@ -3,11 +3,14 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Guty Labs</h1>
+
+    <a class="btn btn-secondary btn-sm float-right" href="{{route('admin.posts.create')}}">Nuevo Post</a>
+
+    <h1>Listado de Posts</h1>
 @stop
 
 @section('content')
-
+    {{-- componente livewire --}}
     @livewire('admin.posts-index')
 
 @stop

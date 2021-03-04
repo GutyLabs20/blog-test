@@ -2,7 +2,7 @@
 
     {{-- {{$search}} --}}
 
-    <div class="card-header">
+    <div class="card-header bg-secondary">
         <input wire:model="search" class="form-control" placeholder="Ingrese el nombre de un post">
     </div>
 
