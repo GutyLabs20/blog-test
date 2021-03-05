@@ -47,7 +47,13 @@ class PostController extends Controller
     public function store(StorePostRequest $request)
     {
         //Se cambio request por StorePostRequest
-        return 'Las validaciones pasaron con éxtio';
+        $post = Post::create($request->all());
+
+        if ($request->tags) {
+            $post->tags()->attach($request->tags);
+        }
+
+        return redirect()->route('admin.posts.edit', $post);
 
     }
 

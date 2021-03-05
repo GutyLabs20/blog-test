@@ -8,16 +8,16 @@
 
 @section('content')
 
-    @if (session('info'))
+    {{-- @if (session('info'))
         <div class="alert alert-success">
             <strong>{{session('info')}}</strong>
         </div>
-    @endif
+    @endif --}}
 
     <div class="card">
         <div class="card-body">
 
-            {!! Form::model($category, ['route' => ['admin.categories.update', $category], 'method' => 'put']) !!}
+            {{-- {!! Form::model($category, ['route' => ['admin.categories.update', $category], 'method' => 'put']) !!}
 
                 <div class="form-group">
                     {!! Form::label('name', 'Nombre') !!}
@@ -43,14 +43,14 @@
 
                 {!! Form::submit('Actualizar Categoría', ['class' => 'btn btn-primary btn-sm']) !!}
 
-            {!! Form::close() !!}
+            {!! Form::close() !!} --}}
 
         </div>
     </div>
 
 @stop
 
-@section('js')
+{{-- @section('js')
 
     <script src="{{asset('vendor/jQuery-Plugin-stringToSlug-1.3/jquery.stringToSlug.min.js')}}"></script>
 
@@ -64,4 +64,4 @@
         });
     </script>
 
-@endsection
+@endsection --}}
