@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Guty Labs')
 
 @section('content_header')
     <h1>Editar Post</h1>
@@ -8,53 +8,58 @@
 
 @section('content')
 
-    {{-- @if (session('info'))
+    @if (session('info'))
         <div class="alert alert-success">
             <strong>{{session('info')}}</strong>
         </div>
-    @endif --}}
+    @endif
 
     <div class="card">
         <div class="card-body">
 
-            {{-- {!! Form::model($category, ['route' => ['admin.categories.update', $category], 'method' => 'put']) !!}
+            {{-- Se habilitó el atributo files, que sirve para enviar archivos desde el formulario --}}
+            {!! Form::model($post,['route' => ['admin.posts.update', $post], 'autocomplete' => 'off', 'files' => true, 'method' => 'put']) !!}
 
-                <div class="form-group">
-                    {!! Form::label('name', 'Nombre') !!}
-                    {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Ingrese nombre de la categoría']) !!}
+                {!! Form::hidden('user_id', auth()->user()->id) !!}
 
-                    @error('name')
-                        <span class="text-danger">
-                            {{$message}}
-                        </span>
-                    @enderror
-                </div>
+                {{-- Se corto y se genero un archivo form.blade.php en la carpeta partials, servira para edit y create --}}
 
-                <div class="form-group">
-                    {!! Form::label('slug', 'Slug') !!}
-                    {!! Form::text('slug', null, ['class' => 'form-control', 'placeholder' => 'Ingrese slug de la categoría', 'readonly']) !!}
+                @include('admin.posts.partials.form')
 
-                    @error('slug')
-                        <span class="text-danger">
-                            {{$message}}
-                        </span>
-                    @enderror
-                </div>
+                {!! Form::submit('Actualizar Post', ['class' => 'btn btn-primary']) !!}
 
-                {!! Form::submit('Actualizar Categoría', ['class' => 'btn btn-primary btn-sm']) !!}
-
-            {!! Form::close() !!} --}}
+            {!! Form::close() !!}
 
         </div>
     </div>
 
 @stop
 
-{{-- @section('js')
+
+@section('css')
+    <style>
+        .image-wrapper{
+            position: relative;
+            padding-bottom: 56.25%;
+        }
+
+        .image-wrapper img{
+            position: absolute;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+@stop
+
+
+@section('js')
 
     <script src="{{asset('vendor/jQuery-Plugin-stringToSlug-1.3/jquery.stringToSlug.min.js')}}"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/26.0.0/classic/ckeditor.js"></script>
 
     <script>
+        //Plugin de cadena a Slug
         $(document).ready( function() {
             $("#name").stringToSlug({
                 setEvents: 'keyup keydown blur',
@@ -62,6 +67,35 @@
                 space: '-'
             });
         });
+
+        // Plugin ckeditor modo clásico
+        ClassicEditor
+        .create( document.querySelector( '#extract' ) )
+        .catch( error => {
+            console.error( error );
+        });
+
+        ClassicEditor
+        .create( document.querySelector( '#body' ) )
+        .catch( error => {
+            console.error( error );
+        });
+
+
+        //Cambiar imagen
+        document.getElementById("file").addEventListener('change', cambiarImagen);
+
+        function cambiarImagen(event){
+            var file = event.target.files[0];
+
+            var reader = new FileReader();
+            reader.onload = (event) => {
+                document.getElementById("picture").setAttribute('src', event.target.result);
+            };
+
+            reader.readAsDataURL(file);
+        }
+
     </script>
 
-@endsection --}}
+@endsection

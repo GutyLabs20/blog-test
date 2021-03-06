@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Storage;
 
 
 //Se agrega un FormRequest
-use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\PostRequest;
 
 class PostController extends Controller
 {
@@ -46,11 +46,11 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePostRequest $request)
+    public function store(PostRequest $request)
     {
 
 
-        //Se cambio request por StorePostRequest
+        //Se cambio request por PostRequest
         $post = Post::create($request->all());
 
         if ($request->file('file')) {
@@ -92,7 +92,11 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         //
-        return view('admin.posts.edit', compact('post'));
+        //metodo pluck, puede convertir una tabla en matriz con valor y clave, segun dos campos asignados
+        $categorias = Category::pluck('name', 'id');
+        $tags = Tag::all();
+
+        return view('admin.posts.edit', compact('post', 'categorias', 'tags'));
     }
 
     /**
@@ -102,9 +106,38 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(PostRequest $request, Post $post)
     {
-        //
+        //Le pasamos la información del formulario
+        $post->update($request->all());
+
+        //Si estamos mandando una imagen
+        if ($request->file('file')) {
+            //Aqui se llama a la carpeta llamada posts con ayuda del facade Storage
+            $url = Storage::put('posts', $request->file('file'));
+
+            //Si el post ya contaba con una imagen
+            if ($post->image) {
+                //Eliminamos la imagen
+                Storage::delete($post->image->url);
+
+                //Actualizamos la imagen
+                $post->image->update([
+                    'url' => $url
+                ]);
+            }else{
+                $post->image()->create([
+                    'url' => $url
+                ]);
+            }
+        }
+
+        if ($request->tags) {
+            $post->tags()->attach($request->tags);
+        }
+
+        return redirect()->route('admin.posts.edit', $post)
+                ->with('info', 'El post se actualizó con éxito');
     }
 
     /**
