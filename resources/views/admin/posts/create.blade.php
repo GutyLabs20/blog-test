@@ -17,7 +17,8 @@
     <div class="card">
         <div class="card-body">
 
-            {!! Form::open(['route' => 'admin.posts.store', 'autocomplete' => 'off']) !!}
+            {{-- Se habilitó el atributo files, que sirve para enviar archivos desde el formulario --}}
+            {!! Form::open(['route' => 'admin.posts.store', 'autocomplete' => 'off', 'files' => true]) !!}
 
                 {!! Form::hidden('user_id', auth()->user()->id) !!}
 
@@ -84,7 +85,7 @@
                     <label>{!! Form::radio('status', 1, true) !!}Borrador</label>
                     <label>{!! Form::radio('status', 2, null, ['class' => 'ml-3']) !!}Publicado</label>
 
-                    <hr>
+
 
                     @error('status')
                         <span class="text-danger">
@@ -93,6 +94,39 @@
                     @enderror
 
                 </div>
+
+                <hr>
+
+                <div class="row mb-4">
+                    <div class="col">
+                        <div class="image-wrapper">
+                            <img id="picture" src="https://cdn.pixabay.com/photo/2020/12/27/12/07/sunrise-5863751_960_720.png" alt="">
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            {!! Form::label('file', 'Imagen que mostrará en el post') !!}
+                            {{-- Agregue atributo accept solo imagenes y luego hacer la validación en el servidor --}}
+                            {!! Form::file('file', ['class' => 'form-control-file', 'accept' => 'image/*']) !!}
+
+                            @error('file')
+                                <span class="text-danger">
+                                    {{$message}}
+                                </span>
+                            @enderror
+
+                        </div>
+
+
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum expedita incidunt ipsum! Tenetur provident quibusdam autem est quisquam optio voluptatem nobis expedita itaque maxime, sit consequatur dolorem distinctio, minus inventore.
+                        </p>
+
+                    </div>
+                </div>
+
+                <hr>
 
                 <div class="form-group">
 
@@ -129,6 +163,22 @@
 
 @stop
 
+@section('css')
+    <style>
+        .image-wrapper{
+            position: relative;
+            padding-bottom: 56.25%;
+        }
+
+        .image-wrapper img{
+            position: absolute;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+@stop
+
 
 @section('js')
 
@@ -156,6 +206,22 @@
         .catch( error => {
             console.error( error );
         });
+
+
+        //Cambiar imagen
+        document.getElementById("file").addEventListener('change', cambiarImagen);
+
+        function cambiarImagen(event){
+            var file = event.target.files[0];
+
+            var reader = new FileReader();
+            reader.onload = (event) => {
+                document.getElementById("picture").setAttribute('src', event.target.result);
+            };
+
+            reader.readAsDataURL(file);
+        }
+
     </script>
 
 @endsection

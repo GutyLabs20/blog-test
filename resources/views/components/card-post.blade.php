@@ -3,7 +3,12 @@
 
 
 <article class="mb-8 bg-white shadow-lg rounded-lg overflow-hidden">
-    <img class="w-full h-72" src="{{Storage::url($post->image->url)}}" alt="">
+
+    @if ($post->image)
+        <img class="w-full h-72 object-cover object-center" src="{{Storage::url($post->image->url)}}" alt="">
+    @else
+        <img class="w-full h-72" src="https://cdn.pixabay.com/photo/2020/12/27/12/07/sunrise-5863751_960_720.png" alt="">
+    @endif
 
     <div class="px-6 py-4">
         <h1 class="font-bold text-xl mb-2">
@@ -11,7 +16,8 @@
         </h1>
 
         <div class="text-gray-700 text-base">
-            {{$post->extract}}
+            {{-- Aquí se cambio por lo de abajo, {{$post->extract}} ya que con esta línea se muestra las etiquetas html--}}
+            {!!$post->extract!!}
         </div>
     </div>
 
