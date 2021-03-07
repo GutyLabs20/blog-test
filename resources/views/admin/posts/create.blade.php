@@ -20,7 +20,9 @@
             {{-- Se habilitó el atributo files, que sirve para enviar archivos desde el formulario --}}
             {!! Form::open(['route' => 'admin.posts.store', 'autocomplete' => 'off', 'files' => true]) !!}
 
-                {!! Form::hidden('user_id', auth()->user()->id) !!}
+                {{-- Esta línea se elimina para pasarla desde el backend para el metodo create --}}
+                {{-- {!! Form::hidden('user_id', auth()->user()->id) !!} --}}
+                {{-- En este caso lo comentare. --}}
 
                 {{-- Se corto y se genero un archivo form.blade.php en la carpeta partials, servira para edit y create --}}
 
