@@ -9,7 +9,9 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    //
+    //Este Controller es para mostrar blog
+    //En estos metodos, los resultados se muestran en el Front End
+
     public function index()
     {
         $posts = Post::where('status', 2)->latest('id')->paginate(8);
@@ -19,6 +21,8 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
+        $this->authorize('published',$post);
+
         $similares = Post::where('category_id', $post->category_id)
                             ->where('status', 2)
                             ->where('id', '!=', $post->id)

@@ -91,6 +91,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        $this->authorize('author', $post);
         //
         //metodo pluck, puede convertir una tabla en matriz con valor y clave, segun dos campos asignados
         $categorias = Category::pluck('name', 'id');
@@ -108,6 +109,7 @@ class PostController extends Controller
      */
     public function update(PostRequest $request, Post $post)
     {
+        $this->authorize('author', $post);
         //Le pasamos la información del formulario
         $post->update($request->all());
 
@@ -149,6 +151,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $this->authorize('author', $post);
         //
         $post->delete();
 
