@@ -241,6 +241,13 @@ return [
             // 'label'       => 4,
             // 'label_color' => 'success',
         ],
+
+        [
+            'text'        => 'Usuarios',
+            'route'         => 'admin.users.index',
+            'icon'        => 'fas fa-fw fa-users',
+        ],
+
         ['header' => 'ADMINISTRADOR'],
         [
             'text' => 'Categorías',
