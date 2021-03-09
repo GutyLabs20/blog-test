@@ -8,10 +8,13 @@ use App\Http\Controllers\Admin\TagController;
 
 use App\Http\Controllers\Admin\UserController;
 
-Route::get('', [HomeController::class, 'index'])->name('admin.home');
+//Agregando un middleware, que es para proteger las rutas, tambien se hara para users pero desde el controlador.
+Route::get('', [HomeController::class, 'index'])->middleware('can:admin.home')->name('admin.home');
 
+//Del resource solo index, edit, update.
 Route::resource('users', UserController::class)->only(['index','edit','update'])->names('admin.users');
 
-Route::resource('categories', CategoryController::class)->names('admin.categories');
-Route::resource('tags', TagController::class)->names('admin.tags');
-Route::resource('posts', PostController::class)->names('admin.posts');
+//Aplicamos el metodo except para que no genere una ruta, en este caso SHOW
+Route::resource('categories', CategoryController::class)->except('show')->names('admin.categories');
+Route::resource('tags', TagController::class)->except('show')->names('admin.tags');
+Route::resource('posts', PostController::class)->except('show')->names('admin.posts');
