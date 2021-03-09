@@ -15,7 +15,7 @@
                         <th>ID</th>
                         <th>Nombre</th>
                         <th>Email</th>
-                        <th colspan="2"></th>
+                        <th>Acción</th>
                     </tr>
                 </thead>
 
@@ -28,16 +28,7 @@
                             <td width="10px">
                                 <a class="btn btn-primary btn-sm" href="{{route('admin.users.edit', $user)}}">Editar</a>
                             </td>
-                            <td width="10px">
-                                <form action="{{route('admin.users.destroy', $user)}}" method="POST">
-                                    @csrf
-                                    @method('delete')
 
-                                    <button type="submit" class="btn btn-danger btn-sm">
-                                        Eliminar
-                                    </button>
-                                </form>
-                            </td>
                         </tr>
                     @endforeach
                 </tbody>

@@ -3,7 +3,13 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
+
+    @can('admin.categories.create')
+        <a class="btn btn-primary btn-sm float-right" href="{{route('admin.categories.create')}}">Agregar Categoria</a>
+    @endcan
+
     <h1>Listar Categorías</h1>
+
 @stop
 
 @section('content')
@@ -15,9 +21,9 @@
     @endif
 
     <div class="card">
-        <div class="card-header">
+        {{-- <div class="card-header">
             <a class="btn btn-primary btn-sm" href="{{route('admin.categories.create')}}">Agregar Categoria</a>
-        </div>
+        </div> --}}
         <div class="card-body">
             <table class="table table-striped">
                 <thead>
@@ -34,17 +40,25 @@
                             <td>{{$categoria->id}}</td>
                             <td>{{$categoria->name}}</td>
                             <td width="10px">
-                                <a class="btn btn-primary btn-sm" href="{{route('admin.categories.edit', $categoria)}}">Editar</a>
+
+                                @can('admin.categories.edit')
+                                    <a class="btn btn-primary btn-sm" href="{{route('admin.categories.edit', $categoria)}}">Editar</a>
+                                @endcan
+
                             </td>
                             <td width="10px">
-                                <form action="{{route('admin.categories.destroy', $categoria)}}" method="POST">
-                                    @csrf
-                                    @method('delete')
 
-                                    <button type="submit" class="btn btn-danger btn-sm">
-                                        Eliminar
-                                    </button>
-                                </form>
+                                @can('admin.categories.destroy')
+                                    <form action="{{route('admin.categories.destroy', $categoria)}}" method="POST">
+                                        @csrf
+                                        @method('delete')
+
+                                        <button type="submit" class="btn btn-danger btn-sm">
+                                            Eliminar
+                                        </button>
+                                    </form>
+                                @endcan
+
                             </td>
                         </tr>
                     @endforeach
